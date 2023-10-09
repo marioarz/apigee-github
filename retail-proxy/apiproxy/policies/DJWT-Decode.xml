@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DecodeJWT continueOnError="false" enabled="true" name="DJWT-Decode">
+  <DisplayName>DJWT-Decode</DisplayName>
+  <Source>request.header.jwt-token</Source>
+</DecodeJWT>

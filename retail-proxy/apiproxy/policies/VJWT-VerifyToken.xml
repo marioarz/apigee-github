@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<VerifyJWT continueOnError="false" enabled="true" name="VJWT-VerifyToken">
+  <DisplayName>VJWT-VerifyToken</DisplayName>
+  <Algorithm>HS256</Algorithm>
+  <Source>request.header.jwt-token</Source>
+  <SecretKey>
+    <Value ref="private.key"/>
+  </SecretKey>
+</VerifyJWT>
