@@ -30,7 +30,7 @@
                     "tokens": [
                         {
                             "xpath": "/TargetEndpoint/HTTPTargetConnection/URL",
-                            "value": "https://mocktarget.apigee.net"
+                            "value": "http://backend.apigee.dev"
                         }
                     ]
                 }
@@ -66,7 +66,7 @@
                     "tokens": [
                         {
                             "xpath": "/TargetEndpoint/HTTPTargetConnection/URL",
-                            "value": "https://mocktarget.apigee.net"
+                            "value": "http://backend.apigee.net"
                         }
                     ]
                 }
