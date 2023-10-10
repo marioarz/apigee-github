@@ -57,6 +57,18 @@
                 <apigee.bearer>${bearer}</apigee.bearer>
             </properties>
         </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <apigee.profile>prod</apigee.profile>
+                <apigee.env>${env}</apigee.env>
+                <apigee.hosturl>https://apigee.googleapis.com</apigee.hosturl>
+                <apigee.apiversion>v1</apigee.apiversion>
+                <apigee.org>${org}</apigee.org>
+                <apigee.options>override</apigee.options> 
+                <apigee.bearer>${bearer}</apigee.bearer>
+            </properties>
+        </profile>
     </profiles>
 
     <build>
