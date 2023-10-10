@@ -16,6 +16,9 @@
       <Step>
         <Name>VJWT-VerifyToken</Name>
       </Step>
+      <Step>
+        <Name>AM-StripAuth</Name>
+      </Step>
     </Request>
     <Response/>
   </PreFlow>
