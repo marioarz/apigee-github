@@ -58,9 +58,9 @@
             </properties>
         </profile>
         <profile>
-            <id>prod</id>
+            <id>stg</id>
             <properties>
-                <apigee.profile>prod</apigee.profile>
+                <apigee.profile>stg</apigee.profile>
                 <apigee.env>${env}</apigee.env>
                 <apigee.hosturl>https://apigee.googleapis.com</apigee.hosturl>
                 <apigee.apiversion>v1</apigee.apiversion>
