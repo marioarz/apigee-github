@@ -7,6 +7,9 @@ on:
   push:
     branches:
     - 'main'
+    paths:
+      - '.github/workflows/apigee-flow.yaml'
+      - 'src/**'
 jobs:
   run:
     name: 'deploy api proxy'
@@ -27,12 +30,7 @@ jobs:
       uses: 'google-github-actions/setup-gcloud@v0.3.0'
     - id: 'Create API bundle'
       run: 'zip -r proxy.zip apiproxy'
-    - id: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@v0.3.0
-    - id: Create API bundle
-      run: zip -r proxy.zip apiproxy
-    - id: Upload API Proxy Bundle
-      id: upload
+    - id: 'Upload API Proxy Bundle'
       run: "echo \"::set-output name=apigee-revision::$(curl --fail -X POST -H \"Content-Type: multipart/form-data\" -H \"Authorization: Bearer ${{steps.auth.outputs.access_token}}\" -F \"file=@proxy.zip\" \"https://apigee.googleapis.com/v1/organizations/${{secrets.APIGEE_ORG}}/apis?action=import&name=retail-v1\" --silent | jq --raw-output .revision)\""
-    - id: Deploy Revision
+    - id: 'Deploy Revision'
       run: "curl --fail -X POST -H \"Authorization: Bearer ${{steps.auth.outputs.access_token}}\" \"https://apigee.googleapis.com/v1/organizations/${{ secrets.APIGEE_ORG }}/environments/test-env/apis/retail-v1/revisions/${{steps.upload.outputs.apigee-revision}}/deployments?override=true\""         
