@@ -34,6 +34,8 @@ jobs:
         service_account: ${{ secrets.SA_EMAIL }} # this is a SA email configured using the TF module with access to YOUR-GCS-BUCKET
     - id: 'gcloud'
       uses: 'google-github-actions/setup-gcloud@v0.3.0'
+    - id: 'dir'
+      run: ls
     - id: 'bundle'
       run: 'zip -r apiproxy.zip apiproxy'
     - id: 'upload'
