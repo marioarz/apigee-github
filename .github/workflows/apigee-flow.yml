@@ -32,7 +32,7 @@ jobs:
     - id: 'bundle'
       run: 'zip -r apiproxy.zip apiproxy'
     - id: 'upload'
-      run: "curl --fail -X POST -H \"Content-Type: multipart/form-data\" -H \"Authorization: Bearer $TOKEN\" -F \"file=@apiproxy.zip\" \"https://apigee.googleapis.com/v1/organizations/cce-apigee-payg/apis?action=import&name=retail-v1\" --silent | jq --raw-output .revision)"
+      run: "curl --fail -X POST -H \"Content-Type: multipart/form-data\" -H \"Authorization: Bearer $TOKEN\" -F \"file=@apiproxy.zip\" \"https://apigee.googleapis.com/v1/organizations/cce-apigee-payg/apis?action=import&name=retail-v1\""
       #run: "echo \"APIGEE_REVISION=$(curl --fail -X POST -H \"Content-Type: multipart/form-data\" -H \"Authorization: Bearer $TOKEN\" -F \"file=@apiproxy.zip\" \"https://apigee.googleapis.com/v1/organizations/cce-apigee-payg/apis?action=import&name=retail-v1\" --silent | jq --raw-output .revision)\" >> $GITHUB_ENV"
       #run: "echo \"::set-output name=apigee-revision::$(curl --fail -X POST -H \"Content-Type: multipart/form-data\" -H \"Authorization: Bearer ${{steps.auth.outputs.access_token}}\" -F \"file=@proxy.zip\" \"https://apigee.googleapis.com/v1/organizations/${{secrets.APIGEE_ORG}}/apis?action=import&name=retail-v1\" --silent | jq --raw-output .revision)\""
     - id: 'test'
