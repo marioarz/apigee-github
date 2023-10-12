@@ -1,0 +1,38 @@
+# This is a basic workflow to help you get started with Actions
+# Example workflow
+# .github/workflows/example.yml
+
+name: 'proxi-ci'
+on:
+  push:
+    branches:
+    - 'main'
+jobs:
+  run:
+    name: 'deploy api proxy'
+    permissions:
+      id-token: write
+      contents: read
+    runs-on: 'ubuntu-latest'
+    steps:
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        token_format: 'access_token'
+        create_credentials_file: true
+        activate_credentials_file: true
+        workload_identity_provider: ${{ secrets.PROVIDER_NAME }} # this is the output provider_name from the TF module
+        service_account: ${{ secrets.SA_EMAIL }} # this is a SA email configured using the TF module with access to YOUR-GCS-BUCKET
+    - id: 'Set up gcloud'
+      uses: 'google-github-actions/setup-gcloud@v0.3.0'
+    - id: 'Create API bundle'
+      run: 'zip -r proxy.zip apiproxy'
+    - id: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0.3.0
+    - id: Create API bundle
+      run: zip -r proxy.zip apiproxy
+    - id: Upload API Proxy Bundle
+      id: upload
+      run: "echo \"::set-output name=apigee-revision::$(curl --fail -X POST -H \"Content-Type: multipart/form-data\" -H \"Authorization: Bearer ${{steps.auth.outputs.access_token}}\" -F \"file=@proxy.zip\" \"https://apigee.googleapis.com/v1/organizations/${{secrets.APIGEE_ORG}}/apis?action=import&name=retail-v1\" --silent | jq --raw-output .revision)\""
+    - id: Deploy Revision
+      run: "curl --fail -X POST -H \"Authorization: Bearer ${{steps.auth.outputs.access_token}}\" \"https://apigee.googleapis.com/v1/organizations/${{ secrets.APIGEE_ORG }}/environments/test-env/apis/retail-v1/revisions/${{steps.upload.outputs.apigee-revision}}/deployments?override=true\""         
