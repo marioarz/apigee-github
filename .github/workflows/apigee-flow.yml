@@ -38,4 +38,4 @@ jobs:
     - id: 'test'
       run: echo $APIGEE_REVISION
     - id: 'deploy'
-      run: "curl -X POST -H \"Authorization: Bearer ${{steps.auth.outputs.access_token}}\" \"https://apigee.googleapis.com/v1/organizations/cce-apigee-payg/environments/test-env/apis/retail-v1/revisions/11/deployments?override=true\""         
+      run: "curl -X POST -H \"Authorization: Bearer ${{steps.auth.outputs.access_token}}\" \"https://apigee.googleapis.com/v1/organizations/cce-apigee-payg/environments/test-env/apis/retail-v1/revisions/$APIGEE_REVISION/deployments?override=true\""         
