@@ -7,8 +7,6 @@ on:
   push:
     branches:
     - 'main'
-    paths:
-      - 'apiproxy/**'
 jobs:
   run:
     name: 'example to list bucket contents'
