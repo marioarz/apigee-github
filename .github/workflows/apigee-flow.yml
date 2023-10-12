@@ -2,7 +2,7 @@
 # Example workflow
 # .github/workflows/example.yml
 
-name: 'proxi-ci'
+name: 'proxi-api-ci'
 on:
   push:
     branches:
